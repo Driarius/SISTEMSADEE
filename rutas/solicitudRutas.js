@@ -16,7 +16,14 @@ rutas.get('/getSolicitud', async (req, res) => {
 rutas.post('/crear', async (req, res) => {
     const solicitud = new SolicitudModel({
         tipo: req.body.tipo,
-        caracteristicas: req.body.caracteristicas
+        caracteristicas: req.body.caracteristicas,
+        motor: req.body.motor,
+        transmicion: req.body.transmicion,
+        velocidades: req.body.velocidades,
+        kilometrage: req.body.kilometrage,
+        modelo: req.body.modelo,
+        publicacion: req.body.publicacion
+
     
     })
     try {
@@ -111,6 +118,36 @@ rutas.get('/ordenarSolicitudes', async (req, res)=>{
     }
 
 });
-// obtener receta por cantidad
+
+// filtrar por dos condiciones
+//  db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
+//{ $or: [ { qty: { $lt : 10 } }, { qty : { $gt: 50 } } ] },
+//{ $or: [ { sale: true }, { price : { $lt : 5 } } ] }
+ rutas.get('/dosCondiciones', async (req, res) =>{
+    try{
+        const condiciones = await SolicitudModel.find(
+            {$and : [ {velocidades: { $eq: 5}}, 
+                      {modelo: {$lt : 2024}}, {modelo: {$gt : 1997}}, 
+                      {kilometrage: {$lt : 23501}},{kilometrage: {$gt : 17000}} 
+                    
+            ]});
+        res.status(200).json(condiciones);
+    } catch (error){
+                     res.status(500).json ({mensaje: error.message});
+                   }
+
+ });
+// buscar vehiculo por tipo
+rutas.get('/tipoVehiculo/:tipo', async (req, res) =>{
+    try{
+        const vehiculoTipo = await SolicitudModel.find({tipo : req.params.tipo}
+
+        );
+        res.status(200).json(vehiculoTipo);
+    }catch (error){
+        res.status(500).json({ mensaje : error.message})
+    }
+})
+
 
 module.exports = rutas;
