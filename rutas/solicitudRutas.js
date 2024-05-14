@@ -56,7 +56,7 @@ rutas.delete('/eliminar/:id', async (req, res) => {
         if (!solicitudEliminada)
             return res.status(404).json({mensaje : 'Solicitud no encontrada !!'});
         else
-            return res.json({mensaje : 'Receta Eliminada'});
+            return res.json({mensaje : 'Registro Eliminado'});
         }
         catch (error){
             res.status(500).json({mensaje : error.message})
@@ -143,11 +143,29 @@ rutas.get('/tipoVehiculo/:tipo', async (req, res) =>{
         const vehiculoTipo = await SolicitudModel.find({tipo : req.params.tipo}
 
         );
-        res.status(200).json(vehiculoTipo);
+        res.status(200).json(vehiculoTipo)
     }catch (error){
         res.status(500).json({ mensaje : error.message})
     }
-})
+});
+
+// Busqueda por modelo de vehiculo
+rutas.get('/modeloCondiciones/:tipo', async (req, res) =>{
+    try{
+        const condiciones = await SolicitudModel.find(
+            {$and : [ {modelo: { $eq: 2023}}, 
+                      {tipo: req.params.tipo},
+                      {velocidades: { $eq: 4}}
+
+                     
+                    
+            ]});
+        res.status(200).json(condiciones);
+    } catch (error){
+                     res.status(500).json ({mensaje: error.message});
+                   }
+
+ });
 
 
 module.exports = rutas;

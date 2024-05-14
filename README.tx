@@ -1,0 +1,15 @@
+   
+  ********* Desarrollar un Modulo de Solicitud de Caracteristicas de Vehiculos *************
+                                para su importacion y subasta 
+
+    Tamando en cuentas las caracteristicas basicas a momento de la solicitud: 
+   
+   
+     tipo: String,
+     caracteristicas: String,
+     motor: String,
+     transmicion: String,
+     velocidades: Number,
+     kilometrage: Number,
+     modelo: Number,
+     publicacion: String
