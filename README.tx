@@ -1,6 +1,13 @@
    
   ********* Desarrollar un Modulo de Solicitud de Caracteristicas de Vehiculos *************
                                 para su importacion y subasta 
+        
+    OBJETIVOS:
+    1.- REALIZAR MODULO DE AUTENTICACION DE USUARIOS
+    2.- RUTAS DE IMPORTACION
+    3.- COTEJAMIENTO DE IMPUESTOS Y ARANCELES
+    4.- REPORTES DE VEICULOS EN SUBASTA
+    5.-  PROGRAMACION DE PUJAS
 
     Tamando en cuentas las caracteristicas basicas a momento de la solicitud: 
    
@@ -13,3 +20,4 @@
      kilometrage: Number,
      modelo: Number,
      publicacion: String
+     continuara.....

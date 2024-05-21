@@ -120,9 +120,6 @@ rutas.get('/ordenarSolicitudes', async (req, res)=>{
 });
 
 // filtrar por dos condiciones
-//  db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
-//{ $or: [ { qty: { $lt : 10 } }, { qty : { $gt: 50 } } ] },
-//{ $or: [ { sale: true }, { price : { $lt : 5 } } ] }
  rutas.get('/dosCondiciones', async (req, res) =>{
     try{
         const condiciones = await SolicitudModel.find(
@@ -155,10 +152,7 @@ rutas.get('/modeloCondiciones/:tipo', async (req, res) =>{
         const condiciones = await SolicitudModel.find(
             {$and : [ {modelo: { $eq: 2023}}, 
                       {tipo: req.params.tipo},
-                      {velocidades: { $eq: 4}}
-
-                     
-                    
+                      {velocidades: { $eq: 4}}     
             ]});
         res.status(200).json(condiciones);
     } catch (error){
@@ -166,6 +160,7 @@ rutas.get('/modeloCondiciones/:tipo', async (req, res) =>{
                    }
 
  });
+
 
 
 module.exports = rutas;

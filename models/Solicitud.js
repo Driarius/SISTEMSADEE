@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 //definir el esquema
 const solicitudSchema = new mongoose.Schema({
     // nombre: {type: String, require: true}
-    tipo: String,
-    caracteristicas: String,
-    motor: String,
+     tipo: String,
+     caracteristicas: String,
+     motor: String,
      transmicion: String,
      velocidades: Number,
      kilometrage: Number,
