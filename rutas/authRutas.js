@@ -30,7 +30,7 @@ rutas.post('/iniciarsesion', async (req, res) => {
         if (!validarContrasena)
             return res.status(401).json({ error : 'Contrasena Invalida'});
         // ceacion de token 
-        const token = jwt.sign({usuarioId: usuario._id}, 'clave_secreta', {expiresIn: '1h'});
+        const token = jwt.sign({usuarioId: usuario._id}, 'clave_secreta', {expiresIn: '8h'});
         res.json({token});
     }
     catch (error){

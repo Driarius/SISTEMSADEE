@@ -17,5 +17,9 @@
     "mongoose": "^8.3.4",
     "mongose": "^0.0.2-security",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }

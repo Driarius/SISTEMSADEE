@@ -1,6 +1,7 @@
 const express = require('express');
 const rutas = express.Router();
 const SolicitudModel = require('../models/Solicitud');
+const UsuarioModel = require('../models/Usuario');
 
 //endpoint traer todas las slicitudes
 rutas.get('/getSolicitud', async (req, res) => {
@@ -22,7 +23,8 @@ rutas.post('/crear', async (req, res) => {
         velocidades: req.body.velocidades,
         kilometrage: req.body.kilometrage,
         modelo: req.body.modelo,
-        publicacion: req.body.publicacion
+        publicacion: req.body.publicacion,
+        usuario: req.body.usuario// asignar el id del usuario
 
     
     })
@@ -161,6 +163,49 @@ rutas.get('/modeloCondiciones/:tipo', async (req, res) =>{
 
  });
 
+ //Obtener todas las solicitudes por usuario
+rutas.get('/solicitudPorUsuario/:usuarioId', async (peticion, respuesta) =>{
+    const {usuarioId} = peticion.params;
+    try{
+        const usuario = await UsuarioModel.findById(usuarioId);
+        if(!usuario)
+            return respuesta.status(404).json({mensaje : 'Solicitud no encontrada'});
+        const solicitud = await SolicitudModel.find({usuario : usuarioId}).populate('usuario');
+        respuesta.json(solicitud);
+    }
+    catch (error){
+        respuesta.status(500).json({mensaje : error.message});
+    }
+});
+
+// SUMAR la cantidad de velocidades por usuario
+rutas.get('/velocidadPorUsuario', async (req, res) => {
+    try{
+        const usuarios = await UsuarioModel.find();
+        const reporte = await Promise.all(
+            usuarios.map(async (usuario1) => {
+                const solicitudes = await SolicitudModel.find({usuario : usuario1._id});
+                const totalVelocidades = solicitudes.reduce((sum, solicitud) => sum + solicitud.velocidades,0);
+                return{
+                    usuario: {
+                        _id: usuario1._id,
+                        nombreusuario: usuario1.nombreusuario
+                    },
+                    totalVelocidades,
+                    solicitud: solicitudes.map( s => ({
+                        _id: s._id,
+                        tipo: s.tipo,
+                        velocidades: s.velocidades
+                    }))
+                }
+            })
+        )
+        res.json(reporte);
+    } catch(error){
+        res.status(500).json({mensaje : error.message})
+
+    }
+});
 
 
 module.exports = rutas;

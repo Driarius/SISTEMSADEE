@@ -9,7 +9,9 @@ const solicitudSchema = new mongoose.Schema({
      velocidades: Number,
      kilometrage: Number,
      modelo: Number,
-     publicacion: String
+     publicacion: String,
+     usuario: { type: mongoose.Schema.Types.ObjectId, ref : 'Usuario'}
+
 });
 const SolicitudModel = mongoose.model('Solicitud', solicitudSchema, 'solicitud');
 module.exports = SolicitudModel;
