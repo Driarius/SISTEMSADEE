@@ -3,7 +3,7 @@ const rutas = express.Router();
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+let tokensInvalidos = [];
 // Registro 
 rutas.post ('/registro', async (req, res) =>{
 try{
@@ -30,11 +30,13 @@ rutas.post('/iniciarsesion', async (req, res) => {
         if (!validarContrasena)
             return res.status(401).json({ error : 'Contrasena Invalida'});
         // ceacion de token 
-        const token = jwt.sign({usuarioId: usuario._id}, 'clave_secreta', {expiresIn: '8h'});
+        const token = jwt.sign({usuarioId: usuario._id}, 'clave_secreta', {expiresIn: '20h'});
         res.json({token});
     }
     catch (error){
         res.status(500).json({mensaje: error.message});
+    
     }
 });
+
 module.exports = rutas;

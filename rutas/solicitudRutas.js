@@ -49,7 +49,7 @@ rutas.put('/editar/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({ mensaje : error.message});
     }
-})
+});
 
 // endpoint 4 eliminar
 rutas.delete('/eliminar/:id', async (req, res) => {
@@ -163,6 +163,7 @@ rutas.get('/modeloCondiciones/:tipo', async (req, res) =>{
 
  });
 
+ //------------------------- USUARIOS------------------------
  //Obtener todas las solicitudes por usuario
 rutas.get('/solicitudPorUsuario/:usuarioId', async (peticion, respuesta) =>{
     const {usuarioId} = peticion.params;
