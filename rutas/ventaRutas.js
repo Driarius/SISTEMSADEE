@@ -153,3 +153,4 @@ rutas.get('/velocidadPorUsuario', async (req, res) => {
 
 
 module.exports = rutas;
+
